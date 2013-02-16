@@ -38,6 +38,22 @@ Route::filter('auth', function()
 	if (Auth::guest()) return Redirect::route('login');
 });
 
+Route::filter('api.auth', function()
+{
+    // Test against the presence of Basic Auth credentials
+    $creds = array(
+        'username' => Request::getUser(),
+        'password' => Request::getPassword(),
+    );
+    if ( ! Auth::attempt($creds) ) {
+        return Response::json([
+            'error' => true,
+            'message' => 'Unauthorized Request'],
+            401
+        );
+    }
+});
+
 
 Route::filter('guest', function()
 {
