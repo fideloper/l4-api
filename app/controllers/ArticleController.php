@@ -36,10 +36,14 @@ class ArticleController extends BaseController {
 
 		$article->save();
 
-		return Response::json([
+		$response = Response::json([
 			'error' => false,
 			'message' => 'Article Created'
 			], 201);
+
+		$response->setEtag( $article->getEtag() );
+
+		return $response;
 	}
 
 	/**
@@ -53,10 +57,20 @@ class ArticleController extends BaseController {
 			->take(1)
 			->get();
 
-		return Response::json([
+		$etag = Request::getEtags();
+
+		if ( $etag[0] === $article[0]->getEtag() ) {
+			App::abort(304);
+		}
+
+		$response = Response::json([
 			'error' => false,
 			'article' => $article->toArray()
 		], 200);
+
+		$response->setEtag( $article[0]->getEtag() );
+
+		return $response;
 	}
 
 	/**
@@ -82,10 +96,14 @@ class ArticleController extends BaseController {
 
 		$article->save();
 
-		return Response::json([
+		$response = Response::json([
 			'error' => false,
 			'message' => 'Article updated'
 		], 200);
+
+		$response->setEtag( $article->getEtag() );
+
+		return $response;
 	}
 
 	/**
