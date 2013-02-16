@@ -14,17 +14,12 @@ class ArticleController extends BaseController {
 	 */
 	public function index()
 	{
+		$articles = Article::all();
 
-	}
-
-	/**
-	 * Show the form for creating a new resource.
-	 *
-	 * @return Response
-	 */
-	public function create()
-	{
-		//
+		return Response::json([
+			'error' => false,
+			'articles' => $articles->toArray()
+			] ,200);
 	}
 
 	/**
@@ -34,7 +29,17 @@ class ArticleController extends BaseController {
 	 */
 	public function store()
 	{
-		//
+		$article = new Article;
+		$article->user_id = Auth::user()->id;
+		$article->title = Request::get('title');
+		$article->content = Request::get('content');
+
+		$article->save();
+
+		return Response::json([
+			'error' => false,
+			'message' => 'Article Created'
+			], 201);
 	}
 
 	/**
@@ -44,17 +49,14 @@ class ArticleController extends BaseController {
 	 */
 	public function show($id)
 	{
-		//
-	}
+		$article = Article::where('id', $id)
+			->take(1)
+			->get();
 
-	/**
-	 * Show the form for editing the specified resource.
-	 *
-	 * @return Response
-	 */
-	public function edit($id)
-	{
-		//
+		return Response::json([
+			'error' => false,
+			'article' => $article->toArray()
+		], 200);
 	}
 
 	/**
@@ -64,7 +66,26 @@ class ArticleController extends BaseController {
 	 */
 	public function update($id)
 	{
-		//
+		$article = Article::where('id', $id)
+			->take(1)
+			->get();
+
+		if ( Request::get('title') )
+		{
+			$article->title = Request::get('title');
+		}
+
+		if ( Request::get('content') )
+		{
+			$article->content = Request::get('content');
+		}
+
+		$article->save();
+
+		return Response::json([
+			'error' => false,
+			'message' => 'Article updated'
+		], 200);
 	}
 
 	/**
@@ -74,7 +95,16 @@ class ArticleController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		//
+		$article = Article::where('id', $id)
+			->take(1)
+			->get();
+
+		$article->delete();
+
+		return Response::json([
+			'error' => false,
+			'message' => 'Article Deleted'
+		], 200);
 	}
 
 }
