@@ -2,6 +2,11 @@
 
 class ArticleController extends BaseController {
 
+	public function __construct()
+	{
+		$this->beforeFilter('api.auth');
+	}
+
 	/**
 	 * Display a listing of the resource.
 	 *
@@ -9,7 +14,7 @@ class ArticleController extends BaseController {
 	 */
 	public function index()
 	{
-		//
+
 	}
 
 	/**
