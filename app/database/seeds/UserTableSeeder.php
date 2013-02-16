@@ -8,9 +8,7 @@ class UserTableSeeder extends Seeder {
 
         User::create(array(
         	'email' => 'your@email.com',
-        	'password' => Hash::make('your_password'),
-        	'created_at' => new DateTime,
-        	'updated_at' => new DateTime
+        	'password' => Hash::make('your_password')
         ));
     }
 

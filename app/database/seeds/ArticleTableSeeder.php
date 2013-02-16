@@ -6,7 +6,8 @@ class ArticleTableSeeder extends Seeder {
     {
         DB::table('articles')->delete();
 
-        User::create(array(
+        Article::create(array(
+        	'user_id' => 1,
         	'title' => 'This is my first article',
             'content' => "Heres some content for this article..."
         ));
