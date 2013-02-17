@@ -14,7 +14,7 @@ class Collection extends BaseCollection implements CollectionInterface {
 			$etag .= $resource->getEtag();
 		}
 
-		return $etag;
+		return md5($etag);
 	}
 
 }
