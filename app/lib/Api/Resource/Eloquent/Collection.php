@@ -7,7 +7,14 @@ class Collection extends BaseCollection implements CollectionInterface {
 
 	public function getEtags()
 	{
-		return 'whatever';
+		$etag = '';
+
+		foreach ( $this as $resource )
+		{
+			$etag .= $resource->getEtag();
+		}
+
+		return $etag;
 	}
 
 }
