@@ -49,7 +49,8 @@ Route::filter('api.auth', function()
         return Response::json([
             'error' => true,
             'message' => 'Unauthorized Request'],
-            401
+            401,
+            ['WWW-Authenticate' => 'Basic realm="REST API"']
         );
     }
 });
