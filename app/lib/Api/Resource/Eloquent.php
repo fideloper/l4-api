@@ -1,6 +1,7 @@
 <?php namespace Api\Resource;
 
 use Illuminate\Database\Eloquent\Model;
+use Api\Resource\Eloquent\Collection;
 
 class Eloquent extends Model implements ResourceInterface  {
 
@@ -36,6 +37,17 @@ class Eloquent extends Model implements ResourceInterface  {
 		}
 
     	return md5( $etag );
+	}
+
+	/**
+	 * Create a new Eloquent Collection instance.
+	 *
+	 * @param  array  $models
+	 * @return Api\Resource\Eloquent\Collection
+	 */
+	public function newCollection(array $models = array())
+	{
+		return new Collection($models);
 	}
 
 }

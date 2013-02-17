@@ -16,10 +16,7 @@ class ArticleController extends BaseController {
 	{
 		$articles = Article::all();
 
-		return Response::json([
-			'error' => false,
-			'articles' => $articles->toArray()
-			], 200);
+		return Response::collectionJson($articles);
 	}
 
 	/**
@@ -66,12 +63,7 @@ class ArticleController extends BaseController {
 			}
 		}
 
-		$response = Response::json([
-			'error' => false,
-			'article' => $article->toArray()
-		], 200);
-
-		$response->setEtag( $article->getEtag() );
+		$response = Response::resourceJson($article);
 
 		return $response;
 	}
