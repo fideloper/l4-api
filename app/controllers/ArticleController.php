@@ -53,22 +53,20 @@ class ArticleController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$article = Article::where('id', $id)
-			->take(1)
-			->get();
+		$article = Article::find($id);
 
-		$etag = Request::getEtags();
+		// $etag = Request::getEtags();
 
-		if ( $etag[0] === $article[0]->getEtag() ) {
-			App::abort(304);
-		}
+		// if ( $etag[0] === $article[0]->getEtag() ) {
+		// 	App::abort(304);
+		// }
 
 		$response = Response::json([
 			'error' => false,
 			'article' => $article->toArray()
 		], 200);
 
-		$response->setEtag( $article[0]->getEtag() );
+		$response->setEtag( $article->getEtag() );
 
 		return $response;
 	}
@@ -80,9 +78,7 @@ class ArticleController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$article = Article::where('id', $id)
-			->take(1)
-			->get();
+		$article = Article::find($id);
 
 		if ( Request::get('title') )
 		{
@@ -113,9 +109,7 @@ class ArticleController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$article = Article::where('id', $id)
-			->take(1)
-			->get();
+		$article = Article::find($id);
 
 		$article->delete();
 
