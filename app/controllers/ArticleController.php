@@ -19,7 +19,7 @@ class ArticleController extends BaseController {
 		return Response::json([
 			'error' => false,
 			'articles' => $articles->toArray()
-			] ,200);
+			], 200);
 	}
 
 	/**
@@ -55,11 +55,16 @@ class ArticleController extends BaseController {
 	{
 		$article = Article::find($id);
 
-		// $etag = Request::getEtags();
+		$etag = Request::getEtags();
 
-		// if ( $etag[0] === $article[0]->getEtag() ) {
-		// 	App::abort(304);
-		// }
+		if ( isset($etag[0]) )
+		{
+			$etag = str_replace('"', '', $etag[0]);
+
+			if ( $etag === $article->getEtag() ) {
+				App::abort(304);
+			}
+		}
 
 		$response = Response::json([
 			'error' => false,
