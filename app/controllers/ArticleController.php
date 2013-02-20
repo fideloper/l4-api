@@ -16,10 +16,18 @@ class ArticleController extends BaseController {
 	{
 		$articles = Article::all();
 
-		return Response::json([
-			'error' => false,
-			'articles' => $articles->toArray()
-			] ,200);
+		$etag = Request::getEtags();
+
+		if ( isset($etag[0]) )
+		{
+			$etag = str_replace('"', '', $etag[0]);
+
+			if ( $etag === $articles->getEtags() ) {
+				App::abort(304);
+			}
+		}
+
+		return Response::collectionJson($articles);
 	}
 
 	/**
@@ -36,10 +44,7 @@ class ArticleController extends BaseController {
 
 		$article->save();
 
-		return Response::json([
-			'error' => false,
-			'message' => 'Article Created'
-			], 201);
+		return Response::resourceJson($article, [], 201);
 	}
 
 	/**
@@ -49,14 +54,20 @@ class ArticleController extends BaseController {
 	 */
 	public function show($id)
 	{
-		$article = Article::where('id', $id)
-			->take(1)
-			->get();
+		$article = Article::find($id);
 
-		return Response::json([
-			'error' => false,
-			'article' => $article->toArray()
-		], 200);
+		$etag = Request::getEtags();
+
+		if ( isset($etag[0]) )
+		{
+			$etag = str_replace('"', '', $etag[0]);
+
+			if ( $etag === $article->getEtag() ) {
+				App::abort(304);
+			}
+		}
+
+		return Response::resourceJson($article);
 	}
 
 	/**
@@ -66,9 +77,7 @@ class ArticleController extends BaseController {
 	 */
 	public function update($id)
 	{
-		$article = Article::where('id', $id)
-			->take(1)
-			->get();
+		$article = Article::find($id);
 
 		if ( Request::get('title') )
 		{
@@ -82,10 +91,7 @@ class ArticleController extends BaseController {
 
 		$article->save();
 
-		return Response::json([
-			'error' => false,
-			'message' => 'Article updated'
-		], 200);
+		return Response::resourceJson($article, [], 201);
 	}
 
 	/**
@@ -95,14 +101,11 @@ class ArticleController extends BaseController {
 	 */
 	public function destroy($id)
 	{
-		$article = Article::where('id', $id)
-			->take(1)
-			->get();
+		$article = Article::find($id);
 
 		$article->delete();
 
 		return Response::json([
-			'error' => false,
 			'message' => 'Article Deleted'
 		], 200);
 	}
