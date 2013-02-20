@@ -33,14 +33,7 @@ class ArticleController extends BaseController {
 
 		$article->save();
 
-		$response = Response::json([
-			'error' => false,
-			'message' => 'Article Created'
-			], 201);
-
-		$response->setEtag( $article->getEtag() );
-
-		return $response;
+		return Response::resourceJson($article, [], 201);
 	}
 
 	/**
@@ -63,9 +56,7 @@ class ArticleController extends BaseController {
 			}
 		}
 
-		$response = Response::resourceJson($article);
-
-		return $response;
+		return Response::resourceJson($article);
 	}
 
 	/**
@@ -89,14 +80,7 @@ class ArticleController extends BaseController {
 
 		$article->save();
 
-		$response = Response::json([
-			'error' => false,
-			'message' => 'Article updated'
-		], 200);
-
-		$response->setEtag( $article->getEtag() );
-
-		return $response;
+		return Response::resourceJson($article, [], 201);
 	}
 
 	/**
@@ -111,7 +95,6 @@ class ArticleController extends BaseController {
 		$article->delete();
 
 		return Response::json([
-			'error' => false,
 			'message' => 'Article Deleted'
 		], 200);
 	}
