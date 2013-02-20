@@ -1,13 +1,16 @@
-## Laravel 4.x
+# An API built in Laravel 4
 
-### A Framework For Web Artisans
+A study on building an API, and doing so in Laravel
 
-[Official Documentation](http://four.laravel.com) (Under Active Development)
-
-### Contributing To Laravel
-
-**All issues and pull requests should be filed on the [laravel/framework](http://github.com/laravel/framework) repository.**
-
-### License
-
-The Laravel framework is open-sourced software license under the [MIT license](http://opensource.org/licenses/MIT)
+### Focus:
+1. Code Organization in Laravel 4
+	* Application library
+	* Extension/replacement of base classes
+2. "Tips", such as:
+	* Basic Authentication/Filters
+	* Session handling in API setting
+3. Proper Responses - HTTP status codes
+4. Etags support
+	* Conditional GET
+	* Concurrency Control
+5. Rate Limiting (?)
