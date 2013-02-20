@@ -8,8 +8,10 @@ class Response extends BaseResponse {
 
 	/**
 	 * Return a new JSON response from the application.
+	 * Including ETag for the given resource
 	 *
-	 * @param  string  $content
+	 * @param  Api\Resource\ResourceInterface
+	 * @param  array   $data
 	 * @param  int     $status
 	 * @param  array   $headers
 	 * @return Symfony\Component\HttpFoundation\JsonResponse
@@ -26,8 +28,10 @@ class Response extends BaseResponse {
 
 	/**
 	 * Return a new JSON response from the application.
+	 * Including ETag for given collection of resources
 	 *
-	 * @param  string  $content
+	 * @param  Api\Resource\CollectionInterface
+	 * @param  array   $data
 	 * @param  int     $status
 	 * @param  array   $headers
 	 * @return Symfony\Component\HttpFoundation\JsonResponse

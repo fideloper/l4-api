@@ -5,6 +5,11 @@ use Api\Resource\CollectionInterface;
 
 class Collection extends BaseCollection implements CollectionInterface {
 
+	/**
+	* Return ETag based on collection of items
+	*
+	* @return string 	md5 of all ETags
+	*/
 	public function getEtags()
 	{
 		$etag = '';
