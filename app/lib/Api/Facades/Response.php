@@ -2,8 +2,9 @@
 
 use Api\Resource\ResourceInterface;
 use Api\Resource\CollectionInterface;
+use Illuminate\Support\Facades\Response as BaseResponse;
 
-class Response extends \Illuminate\Support\Facades\Response {
+class Response extends BaseResponse {
 
 	/**
 	 * Return a new JSON response from the application.
