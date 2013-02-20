@@ -1,9 +1,10 @@
-<?php namespace Api\Resource;
+<?php namespace Api\Resource\Eloquent;
 
-use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Model as BaseModel;
 use Api\Resource\Eloquent\Collection;
+use Api\Resource\ResourceInterface;
 
-class Eloquent extends Model implements ResourceInterface  {
+class Model extends BaseModel implements ResourceInterface  {
 
 	protected $etag = false;
 

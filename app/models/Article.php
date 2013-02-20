@@ -1,6 +1,8 @@
 <?php
 
-class Article extends Api\Resource\Eloquent {
+use Api\Resource\Eloquent\Model;
+
+class Article extends Model {
 
     protected $table = 'articles';
 
