@@ -16,6 +16,17 @@ class ArticleController extends BaseController {
 	{
 		$articles = Article::all();
 
+		$etag = Request::getEtags();
+
+		if ( isset($etag[0]) )
+		{
+			$etag = str_replace('"', '', $etag[0]);
+
+			if ( $etag === $articles->getEtags() ) {
+				App::abort(304);
+			}
+		}
+
 		return Response::collectionJson($articles);
 	}
 

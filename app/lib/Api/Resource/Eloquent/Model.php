@@ -34,7 +34,15 @@ class Model extends BaseModel implements ResourceInterface  {
 
 		if ( $this->usesTimestamps() )
 		{
-			$etag .= $this->updated_at;
+			$datetime = $this->updated_at;
+
+			if ( $datetime instanceof \DateTime )
+			{
+				$datetime = $this->fromDateTime($datetime);
+			}
+
+			$etag .= $datetime;
+
 		}
 
     	return md5( $etag );
