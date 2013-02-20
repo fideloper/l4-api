@@ -15,5 +15,8 @@
 			"Api": "app/lib"
 		}
 	},
-	"minimum-stability": "dev"
+	"minimum-stability": "dev",
+	"require-dev": {
+        "mockery/mockery": "0.7.2"
+    }
 }
