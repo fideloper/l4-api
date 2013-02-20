@@ -5,6 +5,8 @@ use Api\Resource\CollectionInterface;
 
 class Collection extends BaseCollection implements CollectionInterface {
 
+	private $collectionName;
+
 	/**
 	* Return ETag based on collection of items
 	*
@@ -20,6 +22,17 @@ class Collection extends BaseCollection implements CollectionInterface {
 		}
 
 		return md5($etag);
+	}
+
+	public function setCollectionName($name)
+	{
+		$this->collectionName = $name;
+
+		return $this;
+	}
+
+	public function getCollectionName() {
+		return $this->collectionName;
 	}
 
 }
