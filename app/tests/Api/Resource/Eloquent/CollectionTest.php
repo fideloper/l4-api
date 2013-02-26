@@ -30,7 +30,7 @@ class CollectionTest extends TestCase {
 	{
 		$collection = new Collection;
 
-		$name = $this->_randName();
+		$name = $this->_randString();
 
 		$collection->setCollectionName($name);
 
@@ -45,20 +45,6 @@ class CollectionTest extends TestCase {
 
 		return $mock;
 	}
-
-	/**
-	* @link   http://stackoverflow.com/questions/4356289/php-random-string-generator
-	*/
-	protected function _randName($length=10)
-	{
-		$characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
-	    $randomString = '';
-	    for ($i = 0; $i < $length; $i++) {
-	        $randomString .= $characters[rand(0, strlen($characters) - 1)];
-	    }
-	    return $randomString;
-	}
-
 
 
 }
