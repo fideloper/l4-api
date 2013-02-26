@@ -16,6 +16,8 @@ class ArticleController extends BaseController {
 	{
 		$articles = Article::all();
 
+		$articles->setCollectionName('articles');
+
 		$etag = Request::getEtags();
 
 		if ( isset($etag[0]) )
