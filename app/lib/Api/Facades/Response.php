@@ -38,7 +38,6 @@ class Response extends BaseResponse {
 	 */
 	public static function collectionJson(CollectionInterface $collection, $data = array(), $status = 200, array $headers = array())
 	{
-		// Bit hacky. Need better "name" assignment
 		$data[$collection->getCollectionName()] = $collection->toArray();
 
 		$response = new \Symfony\Component\HttpFoundation\JsonResponse($data, $status, $headers);
