@@ -18,7 +18,7 @@ class Response extends BaseResponse {
 	 */
 	public static function resourceJson(ResourceInterface $resource, $data = array(), $status = 200, array $headers = array())
 	{
-		$data[$resource->getTable()] = $resource->toArray();
+		$data[$resource->getResourceName()] = $resource->toArray();
 
 		$response = new \Symfony\Component\HttpFoundation\JsonResponse($data, $status, $headers);
 		$response->setEtag( $resource->getEtag() );

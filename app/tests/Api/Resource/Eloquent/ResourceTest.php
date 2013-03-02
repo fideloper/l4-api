@@ -1,7 +1,7 @@
 <?php
 
 use Mockery as m;
-use Api\Resource\Eloquent\Model;
+use Api\Resource\Eloquent\Resource;
 
 /**
 * Test protected method?
@@ -9,7 +9,7 @@ use Api\Resource\Eloquent\Model;
 * @link http://stackoverflow.com/questions/249664/best-practices-to-test-protected-methods-with-phpunit
 */
 
-class ModelTest extends TestCase {
+class ResourceTest extends TestCase {
 
 	public function tearDown()
 	{
@@ -20,7 +20,7 @@ class ModelTest extends TestCase {
 	{
         $this->_mockConnectionAndStuff();
 
-		$model = new Model;
+		$model = new Resource;
 
         // Of course you do...
         $model->exists = true;
@@ -50,11 +50,33 @@ class ModelTest extends TestCase {
 
     public function testCreateNewCollection()
     {
-        $model = new Model;
+        $model = new Resource;
 
         $collection = $model->newCollection();
 
         $this->assertTrue( $collection instanceof Api\Resource\Eloquent\Collection );
+    }
+
+    public function testGetSetResourceName()
+    {
+        $model = new Resource;
+
+        $name = $this->_randString();
+
+        $model->setResourceName($name);
+
+        $this->assertEquals( $name, $model->getResourceName() );
+    }
+
+    public function testGetSetResourceNameDefaultsToTable()
+    {
+        $model = new Resource;
+
+        $name = $this->_randString();
+
+        $model->setTable($name);
+
+        $this->assertEquals( $name, $model->getResourceName() );
     }
 
     protected function _mockConnectionAndStuff()

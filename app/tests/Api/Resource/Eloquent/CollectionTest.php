@@ -39,7 +39,7 @@ class CollectionTest extends TestCase {
 
 	protected function _mockModel()
 	{
-		$mock = m::mock('Api\Resource\Eloquent\Model');
+		$mock = m::mock('Api\Resource\Eloquent\Resource');
 		$mock->shouldReceive('getKey')->once()->andReturn( rand(0,500) ); // Called in Illuminate\Database\Eloquent\Collection
 		$mock->shouldReceive('getEtag')->once()->andReturn( md5('someEtag') );
 
