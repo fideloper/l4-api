@@ -25,9 +25,9 @@ class ResponseTest extends TestCase {
 
 		// Test Data
 		$content = json_decode($jsonResponse->getContent());
-		$this->assertTrue( isset($content->resourceTable) );
-		$this->assertTrue( isset($content->resourceTable->some) );
-		$this->assertEquals( 'data', $content->resourceTable->some );
+		$this->assertTrue( isset($content->resourceName) );
+		$this->assertTrue( isset($content->resourceName->some) );
+		$this->assertEquals( 'data', $content->resourceName->some );
 	}
 
 	public function testJsonCollection()
@@ -37,8 +37,8 @@ class ResponseTest extends TestCase {
 
 	private function _mockResourceEloquent()
 	{
-		$mock = m::mock('Api\Resource\Eloquent\Model');
-		$mock->shouldReceive('getTable')->once()->andReturn('resourceTable');
+		$mock = m::mock('Api\Resource\Eloquent\Resource');
+		$mock->shouldReceive('getResourceName')->once()->andReturn('resourceName');
 		$mock->shouldReceive('toArray')->once()->andReturn(['some' => 'data']);
 		$mock->shouldReceive('getEtag')->once()->andReturn( md5('someEtag') );
 
