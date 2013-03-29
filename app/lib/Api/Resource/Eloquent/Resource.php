@@ -15,9 +15,9 @@ class Resource extends Model implements ResourceInterface  {
 	*
 	* @return string ETag for resource
 	*/
-	public function getEtag()
+	public function getEtag($regen=false)
 	{
-		if ( $this->exists && $this->etag === false )
+		if ( $this->exists && ($this->etag === false || $regen === true)  )
     	{
     		$this->etag = $this->generateEtag();
     	}
