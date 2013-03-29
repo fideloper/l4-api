@@ -12,13 +12,13 @@ class Collection extends BaseCollection implements CollectionInterface {
 	*
 	* @return string 	md5 of all ETags
 	*/
-	public function getEtags()
+	public function getEtags($regen=false)
 	{
 		$etag = '';
 
 		foreach ( $this as $resource )
 		{
-			$etag .= $resource->getEtag();
+			$etag .= $resource->getEtag($regen);
 		}
 
 		return md5($etag);
