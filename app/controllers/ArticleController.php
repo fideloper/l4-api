@@ -79,8 +79,26 @@ class ArticleController extends BaseController {
 	 */
 	public function update($id)
 	{
+		// Find article
 		$article = Article::find($id);
 
+		// If no article return a bad request
+		// because article id is invalid
+		if( !$article )
+		{
+			App::abort(400);
+		}
+
+		// Check If-Match header
+		$etag = Request::header('if-match');
+
+		// If etag is given, and does not match
+		if( $etag !== null && $etag !== $article->getEtag() )
+		{
+			return Response::json([], 412);
+		}
+
+		// Some validation, only update fields that are present
 		if ( Request::get('title') )
 		{
 			$article->title = Request::get('title');
@@ -91,9 +109,13 @@ class ArticleController extends BaseController {
 			$article->content = Request::get('content');
 		}
 
+		// Save it
 		$article->save();
 
-		return Response::resourceJson($article, [], 201);
+		// Refresh the eTag, since it'll be new
+		$article->getEtag(true);
+
+		return Response::resourceJson($article, [], 200);
 	}
 
 	/**
