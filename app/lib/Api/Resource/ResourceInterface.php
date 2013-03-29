@@ -2,7 +2,7 @@
 
 interface ResourceInterface {
 
-	public function getEtag();
+	public function getEtag($regen=false);
 
     public function setResourceName($name);
 
